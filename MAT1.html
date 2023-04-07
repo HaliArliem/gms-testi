@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hacked">
+    <link rel="shortcut icon" type="image/png" href="gfml-testi-logo.png">
+
+    <style>
+        body {
+  background-color: black;
+  color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: white;
+  text-align: center;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+a {
+  color: blue;
+  font-family: 'Hacked', monospace;
+}
+
+.view {
+      display: inline-block;
+      width: 33.33%;
+      text-align: center;
+      margin-top: 20px;
+  }
+
+  nav {
+  background-color: black;
+  overflow: hidden;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover {
+  background-color: #555;
+  color: white;
+}
+
+
+    </style>
+     <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+</head>
+<body>
+    <h1>MATEMATIKA 1</h2>
+        <div style="text-align:center;">
+            <img src="mat1.png" style="max-width:15%; height:auto;">
+          </div>
+          
+    <ul id="header-list"></ul>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+  import { getDatabase, ref, push, set, orderByChild, onValue  } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+  import { getStorage,  ref as storageRef, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-storage.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAhnLjEJdAW7UCthNjhFQ_SjR-abRkjKPc",
+    authDomain: "gfml-testi.firebaseapp.com",
+    databaseURL: "https://gfml-testi-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "gfml-testi",
+    storageBucket: "gfml-testi.appspot.com",
+    messagingSenderId: "683055250776",
+    appId: "1:683055250776:web:dc704ef6f73faf7bb3792d",
+    measurementId: "G-PWVC73PBTJ"
+  };
+  // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase();
+const storage = getStorage();
+
+const post_answer_db = ref(database, "post_answers");
+
+function baltazar (event, številka) {
+    event.preventDefault();
+    
+    onValue(post_answer_db, (snapshot) => {
+    const data = snapshot.val();
+
+   
+    
+    
+    const book = "MAT1"; //to je konstanta v file
+    const question = številka.toString();
+  
+    
+    for (const key in data) {
+  const postAnswer = data[key];
+  if (postAnswer.book === book && postAnswer.question === question) {
+    const image_URL = postAnswer.image;
+    const imgElement = document.createElement('img');
+    imgElement.src = image_URL;
+    imgElement.style.width = '1200px';
+    imgElement.style.height = '800px';
+    imgElement.style.display = 'block';
+    imgElement.style.margin = '0 auto 20px';
+    document.body.appendChild(imgElement);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.style.display = 'block';
+    deleteButton.style.margin = '0 auto';
+    deleteButton.addEventListener('click', () => {
+      deleteButton.remove();
+      imgElement.remove();
+    });
+    document.body.appendChild(deleteButton);
+  }
+}
+
+  }, {
+    onlyOnce: true // Set this to true to only retrieve the data once
+  });
+  
+  
+  
+  };
+
+
+
+
+
+
+
+
+
+
+   function generateHeaders(start, end) {
+    let headerList = document.getElementById("header-list");
+    headerList.innerHTML = ""; // clear the current list of headers
+    for (let i = start; i <= end; i++) {
+        let headerItem = document.createElement("li");
+        let headerLink = document.createElement("a");
+        headerLink.href = "#";
+        headerLink.textContent = "Question " + i;
+        headerItem.appendChild(document.createTextNode(" " + i));
+        headerItem.appendChild(headerLink);
+        headerList.appendChild(headerItem);
+
+
+        headerLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        const questionNumber = parseInt(this.textContent.match(/\d+$/)[0]);
+        baltazar(event, questionNumber);
+       
+    });
+
+
+        // Add click event listener to the headerLink
+        
+        
+    }
+};
+
+
+
+
+
+
+
+let numHeaders = 1000;
+let headersPerPage = 50;
+let numPages = Math.ceil(numHeaders / headersPerPage);
+let currentPage = 1;
+
+generateHeaders(1, headersPerPage); // generate the initial set of headers
+
+// Define the function that will be called with the extracted number
+function anotherFunction(number) {
+    console.log('The extracted number is:', number);
+    // Do something with the extracted number
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        let nextButton = document.createElement("button");
+        nextButton.textContent = "Next";
+
+        nextButton.addEventListener("click", function() {
+            currentPage++;
+            let start = (currentPage - 1) * headersPerPage + 1;
+            let end = currentPage * headersPerPage;
+            if (end > numHeaders) {
+                end = numHeaders;
+            }
+            generateHeaders(start, end); // generate the next set of headers
+        });
+
+        let prevButton = document.createElement("button");
+        prevButton.textContent = "Prev";
+
+        prevButton.addEventListener("click", function() {
+            currentPage--;
+            if (currentPage < 1) {
+                currentPage = 1;
+            }
+            let start = (currentPage - 1) * headersPerPage + 1;
+            let end = currentPage * headersPerPage;
+            if (end > numHeaders) {
+                end = numHeaders;
+            }
+            generateHeaders(start, end); // generate the previous set of headers
+        });
+
+        let navButtons = document.createElement("div");
+        navButtons.appendChild(prevButton);
+        navButtons.appendChild(nextButton);
+        document.body.appendChild(navButtons);
+    </script>
+</body>
+</html>

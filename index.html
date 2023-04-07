@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="gfml-testi-logo.png">
+    <title>zapiski</title>
+</head>
+<style>
+  /* Set the width of the headers to be symmetrical */
+  header {
+      display: inline-block;
+      width: 33.33%;
+      text-align: center;
+  }
+  .container {
+      display: flex;
+      align-items: flex-start;
+  }
+  body {
+      background-color: black;
+      color: white;
+      font-size: 16px;
+  }
+  a {
+      color: grey;
+  }
+  .post-solution {
+      display: inline-block;
+      width: 33.33%;
+      text-align: center;
+      margin-top: 20px;
+  }
+  .view {
+      display: inline-block;
+      width: 33.33%;
+      text-align: center;
+      margin-top: 20px;
+  }
+  .zgorn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+}
+nav ul li a {
+    color: white;
+    font-size: 18px;
+  }
+  img {
+  border: none;
+}
+
+
+
+</style>
+<body>
+  <h2 style="text-align: center;">notes</h2>
+
+
+  <div class="zgorn">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+  
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <img src="cherryblossom.gif">
+
+  </div>
+  
+  <div class="container">
+      <header>
+          <h1>MAT</h1>
+          <div>
+              <p style="display: inline-block; vertical-align: middle;">
+                  <a href="MAT1.html">MAT 1</a>
+              </p>
+              <img src="mat1.png" alt="MATEMATIKA 1" style="max-width: 10%; max-height: auto;">
+              <br>
+
+              <p style="display: inline-block; vertical-align: middle;">
+                <a href="MAT2.html">MAT 2</a>
+            </p>
+            <img src="mat2.jpg" alt="MATEMATIKA 2" style="max-width: 10%; max-height: auto;">
+            <br>
+
+            <p style="display: inline-block; vertical-align: middle;">
+              <a href="MAT3.html">MAT 3</a>
+              
+          </p>
+          <img src="mat3.jpeg" alt="MATEMATIKA 3" style="max-width: 10%; max-height: auto;">
+          <br>
+
+          <p style="display: inline-block; vertical-align: middle;">
+            <a href="MAT4.html">MAT 4</a>
+        </p>
+        <img src="mat4.jpeg" alt="MATEMATIKA 4" style="max-width: 10%; max-height: auto;">
+          </div>
+      </header>
+      <header>
+          <h1>FIZ</h1>
+          <div>
+              <p style="display: inline-block; vertical-align: middle;">
+                  <a href="MAT1.html">FIZ 1</a>
+              </p>
+              <img src="mat1.png" alt="FIZIKA 1" style="max-width: 10%; max-height: auto;">
+          </div>
+      </header>
+      <div class="post-solution">
+          <h1>POST SOLUTION</h1>
+          <form action="" id="post_answer_form">
+              <label for="book">Select Book:</label>
+              <br>
+              <select name="book" id="book">
+                  <option value="MAT1">MAT 1</option>
+                  <option value="MAT2">MAT 2</option>
+                  <option value="MAT3">MAT 3</option>
+                  <option value="MAT4">MAT 4</option>
+              </select>
+              <br>
+              <label for="chapter">Chapter:</label>
+              <br>
+              <input type="text" name="chapter" id="chapter">
+              <br>
+              <label for="question">Question Number:</label>
+              <br>
+              <input type="text" name="question" id="question">
+              <br>
+              <label for="image">Upload Image:</label>
+              <br>
+              <input type="file" id="image" name="image">
+              <br>
+              <input type="submit" value="Submit">
+          </form>
+      </div>
+      
+
+        <div class="view">
+          <h1 >VIEW</h1>
+          <form action="" id="view_image">
+              <label for="knjiga">Select Book:</label>
+              <br>
+              <select name="knjiga" id="knjiga">
+                  <br>
+                  <option value="MAT1">MAT 1</option>
+                  <option value="MAT2">MAT 2</option>
+                  <option value="MAT3">MAT 3</option>
+                  <option value="MAT4">MAT 4</option>
+                  
+                  <br>
+              </select>
+              <br>
+              <label for="chapter">Chapter:</label>
+              <br>
+              <input type="text" name="poglavje" id="poglavje">
+              <br>
+              <label for="vprašanje">Question Number:</label>
+              <br>
+              <input type="text" name="vprašanje" id="vprašanje">
+              <br>
+              <input type="submit" value="VIEW">
+              
+          </form>
+
+
+      </div>
+      <br>
+      <!---toj dela-->
+      <!--<img src="https://firebasestorage.googleapis.com/v0/b/gfml-testi.appspot.com/o/images%2F1680708353607_majekm.png?alt=media&token=830f50d0-03c7-4799-844b-c6203f54c345" alt="Majekm Image">-->
+
+      
+      
+</body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+  import { getDatabase, ref, push, set, orderByChild, onValue  } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+  import { getStorage,  ref as storageRef, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-storage.js";
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAhnLjEJdAW7UCthNjhFQ_SjR-abRkjKPc",
+    authDomain: "gfml-testi.firebaseapp.com",
+    databaseURL: "https://gfml-testi-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "gfml-testi",
+    storageBucket: "gfml-testi.appspot.com",
+    messagingSenderId: "683055250776",
+    appId: "1:683055250776:web:dc704ef6f73faf7bb3792d",
+    measurementId: "G-PWVC73PBTJ"
+  };
+  // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase();
+const storage = getStorage();
+
+const post_answer_db = ref(database, "post_answers");
+document.getElementById('post_answer_form').addEventListener("submit", submitForm);
+document.getElementById('view_image').addEventListener("submit", baltazar);
+
+
+
+function baltazar (k) {
+  k.preventDefault();
+  
+  onValue(post_answer_db, (snapshot) => {
+  const data = snapshot.val();
+  
+  
+  const book = document.getElementById("knjiga").value; //to je konstanta v file
+  const chapter = document.getElementById("poglavje").value;
+  const question = document.getElementById("vprašanje").value;
+  
+  for (const key in data) {
+    const postAnswer = data[key];
+    if (postAnswer.book === book && postAnswer.chapter === chapter && postAnswer.question === question) {
+      //console.log(postAnswer.image);
+  
+    const image_URL = postAnswer.image;
+    const imgElement = document.createElement('img');
+    imgElement.src = image_URL;
+    imgElement.style.width = '1200px';
+    imgElement.style.height = '800px';
+    imgElement.style.display = 'block';
+    imgElement.style.margin = '0 auto 20px';
+    document.body.appendChild(imgElement);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.style.display = 'block';
+    deleteButton.style.margin = '0 auto';
+    deleteButton.addEventListener('click', () => {
+      deleteButton.remove();
+      imgElement.remove();
+    });
+    document.body.appendChild(deleteButton);
+      break;
+    }
+  }
+}, {
+  onlyOnce: true // Set this to true to only retrieve the data once
+});
+
+
+};
+
+
+
+
+
+
+
+
+/*
+onValue(post_answer_db, (snapshot) => {
+  console.log(snapshot.val());
+}, {
+  onlyOnce: true // Set this to true to only retrieve the data once
+});
+*/
+
+
+
+// Use the once() method with the "value" event type to retrieve a snapshot of the "post_answers" node
+
+
+//document.getElementById("view_image").addEventListener("submit", viewImage());
+
+
+function viewImage(){
+  console.log("ERUJ");
+}
+
+function checkFileType(slika) {
+  const file = slika;
+
+
+  if (!file.type.startsWith("image/")) {
+    alert("Error: Please upload an image file.");
+   
+  }
+  else{
+    savePost(book, chapter, question, image);
+    alert("Data uploaded successfully!");
+  }
+
+  // Your code to handle the valid image file goes here
+}
+
+/*
+document.getElementById('view_image').addEventListener("submit", (event) => {
+  event.preventDefault(); // prevent the default form submission behavior
+
+  viewImage(); // call the viewImage() function to display the image
+});
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function submitForm(e) {
+  e.preventDefault();
+  const book = getElementVal("book");
+  const chapter = getElementVal("chapter");
+  const question = getElementVal("question");
+  const image = document.getElementById("image").files[0];
+  
+
+
+
+
+
+  if (!book || !chapter || !question) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  if (!image) {
+    
+    alert("Please upload an image.");
+    
+    return;
+  }
+  checkFileType(image);
+  
+    
+  
+ 
+
+  
+}
+
+const savePost = (book, chapter, question, image) => {
+  const imageName = Date.now() + "_" + image.name;
+  const storageRefObj = storageRef(storage, "images/" + imageName);
+
+  uploadBytes(storageRefObj, image).then(() => {
+    getDownloadURL(storageRefObj).then((url) => {
+      const newPostFormRef = push(post_answer_db);
+      set(newPostFormRef, {
+        book: book,
+        chapter: chapter,
+        question: question,
+        image: url,
+      });
+    });
+  });
+};
+
+
+
+const getElementVal = (id) => {
+  return document.getElementById(id).value;
+};
+
+  
+
+ 
+</script>
+
+</html>
