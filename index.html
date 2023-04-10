@@ -250,28 +250,6 @@ function baltazar (k) {
 };
 
 
-
-
-
-
-
-
-/*
-onValue(post_answer_db, (snapshot) => {
-  console.log(snapshot.val());
-}, {
-  onlyOnce: true // Set this to true to only retrieve the data once
-});
-*/
-
-
-
-// Use the once() method with the "value" event type to retrieve a snapshot of the "post_answers" node
-
-
-//document.getElementById("view_image").addEventListener("submit", viewImage());
-
-
 function viewImage(){
   console.log("ERUJ");
 }
@@ -289,16 +267,8 @@ function checkFileType(slika) {
     alert("Data uploaded successfully!");
   }
 
-  // Your code to handle the valid image file goes here
 }
 
-/*
-document.getElementById('view_image').addEventListener("submit", (event) => {
-  event.preventDefault(); // prevent the default form submission behavior
-
-  viewImage(); // call the viewImage() function to display the image
-});
-*/
 
 
 
@@ -319,11 +289,10 @@ function submitForm(e) {
   const chapter = getElementVal("chapter");
   const question = getElementVal("question");
   const image = document.getElementById("image").files[0];
-  
 
-
-
-
+  console.log(chapter);
+  console.log(question);
+  console.log(book);
 
   if (!book || !chapter || !question) {
     alert("Please fill out all fields.");
@@ -331,18 +300,13 @@ function submitForm(e) {
   }
 
   if (!image) {
-    
     alert("Please upload an image.");
-    
     return;
   }
-  checkFileType(image);
-  
-    
-  
- 
 
-  
+  checkFileType(image);
+
+  savePost(book, chapter, question, image);
 }
 
 const savePost = (book, chapter, question, image) => {
@@ -358,9 +322,11 @@ const savePost = (book, chapter, question, image) => {
         question: question,
         image: url,
       });
+      alert("Post submitted successfully!");
     });
   });
 };
+
 
 
 
